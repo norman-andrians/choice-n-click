@@ -1,6 +1,8 @@
 .main-landing-page {
     height: 100vh;
     background-color: #6C4AB6;
+    background-image: url(../images/landing-page/abstrack-lpg.svg);
+    background-size: cover;
     font-family: 'pt sans';
     position: relative;
 }
