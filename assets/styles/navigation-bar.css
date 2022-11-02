@@ -47,5 +47,17 @@
     transform: translateY(-50%);
 }
 .nav-user .nav-row button {
-    width: 80px;
+    width: 100px;
+    transition: .2s;
+}
+.nav-user .nav-row button:hover {
+    transform: scale(1.05);
+}
+.nav-user > .nav-row:first-child button {
+    background-color: #6C4AB6;
+    color: white;
+}
+.nav-user > .nav-row:last-child button {
+    background-color: #dedae7;
+    color: rgb(67, 64, 71);
 }
