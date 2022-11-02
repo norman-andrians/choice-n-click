@@ -21,20 +21,31 @@
     z-index: -1;
     transition: .2s;
 }
-.nav-row button {
+.nav-reg-btn {
     padding: 10px;
-    font-size: medium;
+    font-size: large;
     font-family: 'PT sans';
     font-weight: bold;
     border: none;
     border-radius: 6px;
     margin: 0 5px;
+}
+.nav-menu > .nav-row button {
     color: #6C4AB6;
     width: 100px;
     background-color: transparent;
     position: relative;
 }
-.nav-row button:hover::before {
+.nav-menu > .nav-row button:hover::before {
     width: 100%;
     background-color: #e5dff1;
+}
+.nav-user {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.nav-user .nav-row button {
+    width: 80px;
 }

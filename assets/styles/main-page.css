@@ -32,7 +32,7 @@
     border-radius: 8px;
     position: relative;
     color: #6C4AB6;
-    transition: .15s;
+    transition: 150ms;
 }
 .mlp-button button:hover {
     transform: translateY(4px);
