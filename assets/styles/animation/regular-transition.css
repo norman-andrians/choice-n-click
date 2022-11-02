@@ -1,0 +1,6 @@
+@keyframes appear-f-1 {
+    from {
+        top: 60%;
+        opacity: 0;
+    }
+}

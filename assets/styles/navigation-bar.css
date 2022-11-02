@@ -1,0 +1,40 @@
+.nav-container {
+    background-color: white;
+    position: fixed;
+    width: 100vw;
+    z-index: 10;
+    padding: 12px;
+}
+.nav-row {
+    display: inline-block;
+}
+.nav-row button::before {
+    content: "";
+    background-color: #e5dff100;
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 6px;
+    z-index: -1;
+    transition: .2s;
+}
+.nav-row button {
+    padding: 10px;
+    font-size: medium;
+    font-family: 'PT sans';
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    margin: 0 5px;
+    color: #6C4AB6;
+    width: 100px;
+    background-color: transparent;
+    position: relative;
+}
+.nav-row button:hover::before {
+    width: 100%;
+    background-color: #e5dff1;
+}

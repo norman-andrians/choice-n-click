@@ -1,0 +1,40 @@
+.main-landing-page {
+    height: 100vh;
+    background-color: #6C4AB6;
+    font-family: 'pt sans';
+    position: relative;
+}
+.mlp-section {
+    color: white;
+    position: absolute;
+    left: 2cm;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40%;
+    color: #ece4ff;
+    animation: appear-f-1 1s;
+}
+.mlp-main-heading {
+    font-size: 1.4cm;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    line-height: 0cm;
+}
+.mlp-button button {
+    border: none;
+    width: 6cm;
+    text-align: left;
+    padding: 15px 20px;
+    background-color: white;
+    font-family: 'Mukta';
+    font-weight: bold;
+    font-size: larger;
+    border-radius: 8px;
+    position: relative;
+    color: #6C4AB6;
+    transition: .15s;
+}
+.mlp-button button:hover {
+    transform: translateY(4px);
+    background-color: #f0e9ff;
+}
