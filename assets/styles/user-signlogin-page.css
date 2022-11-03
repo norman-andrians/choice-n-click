@@ -1,5 +1,7 @@
 .main-bg {
     background-color: #6C4AB6;
+    background-image: url(../images/losign-page/background.svg);
+    background-size: cover;
     position: relative;
     height: 100vh;
 }
@@ -33,8 +35,16 @@
     padding: 14px;
     font-family: 'pt sans';
     font-size: medium;
-    border: 1.5px solid #a99dc5;
+    border: 2px solid #a99dc5;
     border-radius: 5px;
+    color: #a99dc5;
+    outline: none;
+    position: relative;
+    transition: .2s;
+}
+.main-form-container .inp-row > .inp-text > input:focus {
+    border: 2px solid #6C4AB6;
+    color: #6C4AB6;
 }
 .main-form-container .inp-row > .inp-text > input::placeholder {
     color: #a99dc5;
