@@ -71,8 +71,37 @@
     text-align: center;
     margin-top: 20px;
 }
+.hcp-text a::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0%;
+    background-color: #6C4AB6;
+    bottom: -2px;
+    transition: .2s;
+}
+.hcp-text a:hover::before {
+    width: 100%;
+}
 .hcp-text a {
     color: #6C4AB6;
     font-weight: bold;
+    text-decoration: none;
+    position: relative;
 }
-.hcp-text a:hover { text-decoration: none; }
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #c8bfdb;
+    border-radius: 10px;
+    position: relative;
+}
+.progress-bar::before {
+    content: "";
+    background-color: #6C4AB6;
+    position: absolute;
+    height: 100%;
+    width: 33%;
+    border-radius: 10px;
+}

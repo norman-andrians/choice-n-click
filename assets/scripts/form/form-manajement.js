@@ -1,10 +1,13 @@
-$(document).ready(() => {
-    var nmInput = $('#nickname').val();
-    var unInput = $('#username').val();
-    var emInput = $('#email').val();
-    var tpInput = $('#telp').val();
-
-    if (nmInput != '' && unInput != '' && emInput != '' && tpInput != '') {
-        $('.sub-btn').attr('type', 'submit');
+const typeDf = (el) => {
+    if (el.val() != '') {
+        console.log('p');
     }
+};
+
+$(document).ready(() => {
+    const inpText = document.querySelectorAll('.inp-text');
+
+    inpText.forEach((el) => {
+        el.children.addEventListener('');
+    });
 });
