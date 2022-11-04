@@ -27,12 +27,26 @@
     margin-left: -2px;
 }
 .main-form-container .inp-row {
-    width: 91.5%;
+    width: 100%;
     margin: 10px 0;
 }
-.main-form-container .inp-row > .inp-text > input {
+.main-form-container .inp-row > .inp-text {
     width: 100%;
+    position: relative;
+}
+.main-form-container .inp-row > .inp-text > .inp-bg {
+    content: "";
+    background-color: #f5f0ff;
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    border-radius: 5px;
+    transition: .5s;
+}
+.main-form-container .inp-row > .inp-text > input {
+    width: 91.5%;
     padding: 14px;
+    background-color: transparent;
     font-family: 'pt sans';
     font-size: medium;
     border: 2px solid #a99dc5;
@@ -42,7 +56,7 @@
     position: relative;
     transition: .2s;
 }
-.main-form-container .inp-row > .inp-text > input:focus {
+.main-form-container .inp-row > .inp-text > input:hover, .main-form-container .inp-row > .inp-text > input:focus {
     border: 2px solid #6C4AB6;
     color: #6C4AB6;
 }
@@ -51,20 +65,17 @@
 }
 .inp-sub button {
     margin-top: 10px;
-    background-color: #6C4AB6;
+    background-color: grey;
     color: white;
-    border: 2px solid #6C4AB6;
+    border: 2px solid grey;
     border-radius: 5px;
     padding: 18px 20px;
     font-size: large;
     font-family: 'pt sans';
     font-weight: bold;
     width: 100%;
+    cursor: not-allowed;
     transition: .2s;
-}
-.inp-sub button:hover {
-    background-color: transparent;
-    color: #6C4AB6;
 }
 
 .hcp-text {
