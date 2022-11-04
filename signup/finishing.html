@@ -20,7 +20,7 @@
             <div class="main-form-base">
                 <header class="header-section">
                     <h1>3 Langkah</h1>
-                    <p>3 Langkah lagi untuk mendaftarkan dirimu</p>
+                    <p>Vertifikasi 3 langkah untuk memulai</p>
                 </header>
                 <div class="progress-bar"></div>
                 <form action="" method="post" class="mainform">
@@ -30,13 +30,22 @@
                     </header>
                     <div class="inp-row">
                         <div class="inp-six-dig">
-                            <input type="text" name="" id="">
-                            <input type="text" name="" id="">
+                            <input type="number" name="confcode" maxlength=1>
+                            <input type="number" name="confcode" maxlength=1>
+                            <input type="number" name="confcode" maxlength=1>
+                            <input type="number" name="confcode" maxlength=1>
+                            <input type="number" name="confcode" maxlength=1>
+                            <input type="number" name="confcode" maxlength=1>
                         </div>
                     </div>
+                    <div class="inp-row">
+                        <div class="gth-btn"><button type="button">Kirim ulang (30s)</button></div>
+                    </div>
+                    <div class="inp-sub"><button id="sub-btn" type="button">Konfirmasi</button></div>
                 </form>
             </div>
         </div>
     </div>
+    <script src="../assets/scripts/form/form-manajement.js"></script>
 </body>
 </html>

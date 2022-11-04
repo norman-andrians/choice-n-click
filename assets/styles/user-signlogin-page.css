@@ -116,3 +116,43 @@
     width: 33%;
     border-radius: 10px;
 }
+
+.inp-six-dig {
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+.inp-six-dig input::-webkit-outer-spin-button, .inp-six-dig input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.inp-six-dig input {
+    margin: 0 5px;
+    -moz-appearance: textfield;
+    text-align: center;
+    font-size: x-large;
+    font-family: 'PT Sans';
+    font-weight: bold;
+    background-color: #eae1ff;
+    color: #6C4AB6;
+    width: 30px;
+    height: 60px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+.gth-btn {
+    margin: 30px 0;
+    text-align: center;
+}
+.gth-btn button {
+    background-color: #eae1ff;
+    color: #6C4AB6;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: normal;
+    font-family: 'pt sans';
+    width: 40%;
+    transition: .2s;
+}
