@@ -1,0 +1,89 @@
+[33mcommit 9a36e0490149fe6c364ec031052c8b74ef61fe3e[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Fri Nov 4 08:34:17 2022 +0700
+
+    memperbarui login
+
+[33mcommit 822ad967235b80df385fa5a82672ceb503c851c4[m[33m ([m[1;31mcnc/main[m[33m)[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Thu Nov 3 23:28:42 2022 +0700
+
+    memperbarui tampilan register
+
+[33mcommit 87b5b350eff8bb013e6cf365cb7c86a82261be99[m
+Merge: 8e03ca7 a7d245c
+Author: Norman Andrians <65523690+norman-andrians@users.noreply.github.com>
+Date:   Thu Nov 3 22:59:12 2022 +0700
+
+    Merge pull request #2 from norman-andrians/login
+    
+    buat halaman register ngabs
+
+[33mcommit a7d245cc46a1adf894265305e8e233a659542b39[m[33m ([m[1;31mcnc/login[m[33m, [m[1;32mlogin[m[33m)[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Thu Nov 3 22:55:15 2022 +0700
+
+    buat halaman register
+
+[33mcommit 8e03ca7a6e85df4652e3cfe6269e68d868a8ebdd[m
+Merge: d85bc43 6509b2c
+Author: Norman Andrians <65523690+norman-andrians@users.noreply.github.com>
+Date:   Thu Nov 3 22:53:02 2022 +0700
+
+    Merge pull request #1 from norman-andrians/login
+    
+    tambah form register ngabs
+
+[33mcommit 6509b2c0f4ea5446b6b0e2c5e42fa2f63e0d5c2b[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Thu Nov 3 18:52:10 2022 +0700
+
+    tambah form register
+
+[33mcommit d85bc4313328d905c4122ee97783181ce13d7e0d[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Thu Nov 3 17:24:42 2022 +0700
+
+    edit sedikit ilustrasi lpg
+
+[33mcommit e1229ac4e37536d6e4fa776292c573ee56c76533[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Wed Nov 2 22:07:06 2022 +0700
+
+    update bg landing page simple abstrak mid-space shape
+
+[33mcommit 212b1b19ab9de5f962782b95e3a769c8b02081ea[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Wed Nov 2 21:44:46 2022 +0700
+
+    tambah bg landing page
+
+[33mcommit c8a7766d021447997c3f95f2f65a28e27a74f0d0[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Wed Nov 2 20:03:56 2022 +0700
+
+    tambah readme
+
+[33mcommit 9a33f54cfe151aae0e353fbd4bce071e7f116fa3[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Wed Nov 2 18:28:21 2022 +0700
+
+    styling login signin
+
+[33mcommit 8c587d7d5813c7a19fd1fb260b69112ddc3a4591[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Wed Nov 2 18:16:04 2022 +0700
+
+    ganti slogan dan tambah nav login dan daftar
+
+[33mcommit cbea3d0efff8e62b3145d38eab4ceaa14dc60cec[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Wed Nov 2 13:36:04 2022 +0700
+
+    tambah landing page dan navigasinya disertai animasi
+
+[33mcommit db9659201827b6004d392724940c5ab2153c7b78[m
+Author: norman-andrians <norman25.na@gmail.com>
+Date:   Wed Nov 2 08:21:03 2022 +0700
+
+    inisialisasi dan commit pertama
