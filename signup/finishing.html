@@ -23,25 +23,36 @@
                     <p>Vertifikasi 3 langkah untuk memulai</p>
                 </header>
                 <div class="progress-bar"></div>
-                <form action="" method="post" class="mainform">
-                    <header class="inp-ftg">
-                        <h3>Konfirmasi alamat email</h3>
-                        <p>Masukan 6-digit nomor yang telah dikirim ke example@mail.com</p>
-                    </header>
-                    <div class="inp-row">
-                        <div class="inp-six-dig">
-                            <input type="number" name="confcode" maxlength=1>
-                            <input type="number" name="confcode" maxlength=1>
-                            <input type="number" name="confcode" maxlength=1>
-                            <input type="number" name="confcode" maxlength=1>
-                            <input type="number" name="confcode" maxlength=1>
-                            <input type="number" name="confcode" maxlength=1>
+                <form action="" method="get" class="mainform">
+                    <div class="tb-form" id="otp-form" style="display: none;">
+                        <header class="inp-ftg">
+                            <h3>Konfirmasi alamat email</h3>
+                            <p>Masukan 6-digit nomor yang telah dikirim ke example@mail.com</p>
+                        </header>
+                        <div class="inp-row">
+                            <div class="inp-six-dig">
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                            </div>
                         </div>
+                        <div class="inp-row">
+                            <div class="gth-btn"><button type="button">Kirim ulang (30s)</button></div>
+                        </div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Konfirmasi</button></div>
                     </div>
-                    <div class="inp-row">
-                        <div class="gth-btn"><button type="button">Kirim ulang (30s)</button></div>
+                    <div class="tb-form" id="otp-form">
+                        <header class="inp-ftg">
+                            <h3>Buat bisnis</h3>
+                        </header>
+                        <div class="inp-row">
+                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="businessname" id="bname" placeholder="Nama bisnis*"></div>
+                        </div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Selanjutnya</button></div>
                     </div>
-                    <div class="inp-sub"><button id="sub-btn" type="button">Konfirmasi</button></div>
                 </form>
             </div>
         </div>

@@ -65,14 +65,7 @@ function checkInput() {
 
 }
 
-$(document).ready(() => {
-    checkInput();
-    for (let i = 0; i < inptext.length; i++) {
-        inptext[i].children[1].addEventListener("focusin", () => { inptext[i].children[0].style.width = "100%"; });
-        inptext[i].children[1].addEventListener("focusout", () => { inptext[i].children[0].style.width = "0%"; });
-        inptext[i].children[1].addEventListener("input", () => { checkInput(); });
-    }
-
+function otpInput() {
     for (let i = 0; i < inpOtp.length; i++) {
         inpOtp[i].addEventListener('input', () => {
             inpOtp[i].value = inpOtp[i].value.length > inpOtp[i].maxLength ? inpOtp[i].value.slice(0, inpOtp[i].maxLength) : inpOtp[i].value;
@@ -86,6 +79,9 @@ $(document).ready(() => {
                     }
                 }
             }
+            else if (i > 0 && ev.keyCode === keycodes.backspace) {
+                inpOtp[i-1].focus();
+            }
         });
         
         inpOtp[i].addEventListener('keydown', (ev) => {
@@ -96,5 +92,20 @@ $(document).ready(() => {
                 inpOtp[i-1].focus();
             }
         });
+
+        inpOtp[i].addEventListener('focusin', () => { inpOtp[i].style.transform = "scale(1.1)" });
+        inpOtp[i].addEventListener('focusout', () => { inpOtp[i].style.transform = "scale(1)" });
     }
+}
+
+$(document).ready(() => {
+    checkInput();
+    for (let i = 0; i < inptext.length; i++) {
+        inptext[i].children[1].addEventListener("focusin", () => { inptext[i].children[0].style.width = "100%"; });
+        inptext[i].children[1].addEventListener("focusout", () => { inptext[i].children[0].style.width = "0%"; });
+        inptext[i].children[1].addEventListener("input", () => { checkInput(); });
+    }
+
+    inpOtp[0].focus();
+    otpInput();
 });
