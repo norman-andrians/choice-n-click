@@ -1,11 +1,17 @@
+import * as fdata from "../data/form-data.js"
+
 const inptext = document.querySelectorAll(".inp-text");
 const inpOtp = document.querySelector(".inp-six-dig").children;
+
+const dropdown = $('.inp-dp-ct');
 
 const keycodes = {
     "backspace" : 8,
     "right" : 39,
     "left" : 37
 }
+
+let tbDrop = false;
 
 const nums = Array.from(Array(10).keys());
 
@@ -65,6 +71,7 @@ function checkInput() {
 
 }
 
+// fungsi untuk navigasi input kode otp
 function otpInput() {
     for (let i = 0; i < inpOtp.length; i++) {
         inpOtp[i].addEventListener('input', () => {
@@ -98,6 +105,29 @@ function otpInput() {
     }
 }
 
+function addDropDown(element, trigger, arrow, data, stats) {
+    let outInner = "";
+
+    data.forEach((item) => {
+        outInner += "<div class=\"inp-dp-row\">"+item+"</div>";
+    });
+
+    element.html(outInner);
+
+    trigger.click(() => {
+        if (stats == false) {
+            element.css("height", "300%");
+            arrow.css("transform", "rotateZ(0deg)");
+            stats = true;
+        }
+        else {
+            element.css("height", "0%");
+            arrow.css("transform", "rotateZ(180deg)");
+            stats = false;
+        }
+    });
+}
+
 $(document).ready(() => {
     checkInput();
     for (let i = 0; i < inptext.length; i++) {
@@ -108,4 +138,6 @@ $(document).ready(() => {
 
     inpOtp[0].focus();
     otpInput();
+
+    addDropDown(dropdown, $('.inp-dropdown'), $('inp-dp-da-icon').children(), fdata.registerForm.businessType, tbDrop);
 });
