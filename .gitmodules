@@ -1,0 +1,3 @@
+[submodule "assets/scripts/data/assets/scripts/data/json-nama-daerah-indonesia"]
+	path = assets/scripts/data/assets/scripts/data/json-nama-daerah-indonesia
+	url = https://github.com/mtegarsantosa/json-nama-daerah-indonesia.git
