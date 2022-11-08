@@ -176,11 +176,12 @@
 }
 
 .inp-dropdown {
-    width: 91.5%;
+    width: 100%;
     padding: 14px;
     background-color: transparent;
     font-family: 'pt sans';
     font-size: medium;
+    text-align: left;
     border: 2px solid #a99dc5;
     border-radius: 5px;
     color: #a99dc5;
@@ -205,6 +206,11 @@
     border: 2px solid #6C4AB6;
     color: #6C4AB6;
 }
+.inp-dropdown:disabled {
+    background-color: #a99dc5;
+    border: 2px solid #a99dc5;
+    color: white;
+}
 .inp-dp-da-icon {
     position: absolute;
     right: 20px;
@@ -212,6 +218,7 @@
     transform: translateY(-50%);
 }
 .inp-dp-ct {
+    z-index: 5;
     background-color: white;
     border-radius: 5px;
     width: 100%;
@@ -223,14 +230,47 @@
     height: 0;
     transition: .5s;
 }
+.inp-dp-ct::-webkit-scrollbar {
+    width: 15px;
+    padding: 8px;
+    background-color: transparent;
+}
+.inp-dp-ct::-webkit-scrollbar-thumb {
+    background-color: #8869ca;
+    border: 3px solid white;
+    border-radius: 10px;
+    margin-left: 40px;
+}
+.inp-dp-ct::-webkit-scrollbar-thumb:hover {
+    background-color: #6C4AB6;
+}
+.inp-dp-ct::-webkit-scrollbar-track {
+    background: none;
+}
 .inp-dp-row {
+    border: none;
+    background-color: white;
+    width: 100%;
+    text-align: left;
     padding: 10px;
     color: #6C4AB6;
     font-family: 'noto sans';
     font-size: small;
+    font-weight: bold;
     transition: .2s;
 }
 .inp-dp-row:hover {
     background-color: #6C4AB6;
     color: white;
+}
+.inp-dp-da-icon i { transition: .2s; }
+.inp-dp-row-empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    font-family: 'pt sans';
+    font-weight: bold;
+    font-size: small;
 }

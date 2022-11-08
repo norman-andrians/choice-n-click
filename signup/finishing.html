@@ -53,12 +53,30 @@
                             <div class="inp-text"><div class="inp-bg"></div><input type="text" name="bname" id="bname" placeholder="Nama bisnis*"></div>
                         </div>
                         <div class="inp-row">
-                            <div class="inp-dropdown">
+                            <button class="inp-dropdown" id="bdrop" type="button">
                                 <input type="hidden" name="btype" value="">
                                 <div class="inp-dp-text">Jenis bisnis*</div>
                                 <div class="inp-dp-da-icon"><i class="fa-solid fa-caret-down"></i></div>
                                 <div class="inp-dp-ct"></div>
-                            </div>
+                            </button>
+                        </div>
+                        <div class="inp-row">
+                            <button class="inp-dropdown" id="pdrop" type="button">
+                                <input type="hidden" name="btype" value="">
+                                <div class="inp-dp-text">Provinsi*</div>
+                                <div class="inp-dp-da-icon"><i class="fa-solid fa-caret-down"></i></div>
+                                <div class="inp-dp-ct"></div>
+                            </button>
+                        </div>
+                        <div class="inp-row">
+                            <button class="inp-dropdown" id="cdrop" type="button" disabled>
+                                <input type="hidden" name="btype" value="">
+                                <div class="inp-dp-text">Kota* (Pilih Provinsi Dulu)</div>
+                                <div class="inp-dp-da-icon"><i class="fa-solid fa-caret-down"></i></div>
+                                <div class="inp-dp-ct">
+                                    <div class="inp-dp-row-empty">Silahkan Pilih Provinsi Terlebih Dahulu</div>
+                                </div>
+                            </button>
                         </div>
                         <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Selanjutnya</button></div>
                     </div>

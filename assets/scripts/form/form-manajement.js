@@ -1,9 +1,9 @@
 import * as fdata from "../data/form-data.js"
+import regData from "../data/json-nama-daerah-indonesia/regions.json" assert { type: 'json' }
+import { DropDownSettings } from "./special-form.js"
 
 const inptext = document.querySelectorAll(".inp-text");
 const inpOtp = document.querySelector(".inp-six-dig").children;
-
-const dropdown = $('.inp-dp-ct');
 
 const keycodes = {
     "backspace" : 8,
@@ -105,30 +105,43 @@ function otpInput() {
     }
 }
 
-function addDropDown(element, trigger, arrow, data, stats) {
-    let outInner = "";
+function BusinessInput() {
+    let profData = [];
+    let citData = [];
 
-    data.forEach((item) => {
-        outInner += "<div class=\"inp-dp-row\">"+item+"</div>";
-    });
+    for (let i of regData) {
+        profData.push(i.provinsi);
+    }
 
-    element.html(outInner);
+    const bdrop = document.querySelector("#bdrop");
+    const pdrop = document.querySelector("#pdrop");
+    const cdrop = document.querySelector("#cdrop");
 
-    trigger.click(() => {
-        if (stats == false) {
-            element.css("height", "300%");
-            arrow.css("transform", "rotateZ(0deg)");
-            stats = true;
-        }
-        else {
-            element.css("height", "0%");
-            arrow.css("transform", "rotateZ(180deg)");
-            stats = false;
-        }
-    });
+    const bDropDown = new DropDownSettings(bdrop, fdata.registerForm.businessType);
+    const pDropDown = new DropDownSettings(pdrop, profData);
+    const cDropDown = new DropDownSettings(cdrop, citData);
+
+    bDropDown.addDropDown();
+    pDropDown.addDropDown();
+    cDropDown.addDropDown();
+
+    for (let i = 0; i < pDropDown.row.length; i++) {
+        pDropDown.row[i].addEventListener('click', () => {
+            citData = regData[i].kota;
+
+            if (cdrop.disabled == true) {
+                cdrop.disabled = false;
+                cDropDown.text.innerHTML = "Kota*";
+            }
+
+            cDropDown.data = citData;
+            cDropDown.refreshDropDown();
+        });
+    }
 }
 
 $(document).ready(() => {
+    BusinessInput();
     checkInput();
     for (let i = 0; i < inptext.length; i++) {
         inptext[i].children[1].addEventListener("focusin", () => { inptext[i].children[0].style.width = "100%"; });
@@ -138,6 +151,4 @@ $(document).ready(() => {
 
     inpOtp[0].focus();
     otpInput();
-
-    addDropDown(dropdown, $('.inp-dropdown'), $('inp-dp-da-icon').children(), fdata.registerForm.businessType, tbDrop);
 });
