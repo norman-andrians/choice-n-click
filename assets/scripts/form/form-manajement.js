@@ -1,5 +1,5 @@
 import * as fdata from "../data/form-data.js"
-import regData from "../data/json-nama-daerah-indonesia/regions.json" assert { type: 'json' }
+import regData from "../data/lib/json-nama-daerah-indonesia/regions.json" assert { type: 'json' }
 import { DropDownSettings } from "./special-form.js"
 
 const inptext = document.querySelectorAll(".inp-text");
