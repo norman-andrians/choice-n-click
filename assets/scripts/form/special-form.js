@@ -11,6 +11,8 @@ export class DropDown {
 }
 
 export class DropDownSettings {
+    drop = document.querySelector('.inp-dp-clt');
+
     constructor (element, data) {
         this.element = element;
         this.data = data;
@@ -38,6 +40,11 @@ export class DropDownSettings {
         if (this.stats == false) {
             this.cont.style.height = "300%";
             this.arrow.style.transform =  "rotateZ(180deg)";
+
+            setTimeout(() => {
+                document.addEventListener('click', this.dropOut)
+            }, 1);
+
             this.stats = true;
         }
     }
@@ -46,7 +53,10 @@ export class DropDownSettings {
         if (this.stats == true) {
             this.cont.style.height = "0%";
             this.arrow.style.transform = "rotateZ(0deg)";
+
             this.stats = false;
+
+            document.removeEventListener('click', this.dropOut);
         }
     }
 
@@ -60,6 +70,7 @@ export class DropDownSettings {
     }
 
     addDropDown() {
+
         this.cont.innerHTML = this.data.length > 0 ? this.drowContHTML(this.data) : this.cont.innerHTML;
         this.element.addEventListener('click', () => { return this.stats == false ? this.dropIn() : this.dropOut() });
         this.selectRow();
