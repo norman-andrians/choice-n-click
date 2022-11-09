@@ -274,3 +274,45 @@
     font-weight: bold;
     font-size: small;
 }
+.inp-dp-clt {
+    display: none;
+    z-index: 1;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
+.inp-file-img input[type="file"] {
+    display: none;
+}
+.inp-file-img label.inp-fl {
+    width: 3cm;
+    height: 3cm;
+    padding: 10px;
+    display: block;
+    border-radius: 8px;
+    border: 3px solid #a99dc5;
+    color: #a99dc5;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    transition: .2s;
+    cursor: pointer;
+}
+.inp-file-img label.inp-fl:hover {
+    width: 3cm;
+    height: 3cm;
+    padding: 10px;
+    display: block;
+    border-radius: 8px;
+    border: 3px solid #6C4AB6;
+    color: #6C4AB6;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
+.inp-fl-t {
+    font-family: 'pt sans';
+    font-weight: bold;
+    font-size: small;
+}

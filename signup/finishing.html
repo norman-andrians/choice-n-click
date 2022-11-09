@@ -17,6 +17,7 @@
 </head>
 <body>
     <div class="main-bg">
+        <div class="inp-dp-clt"></div>
         <div class="main-form-container">
             <div class="main-form-base">
                 <header class="header-section">
@@ -25,7 +26,7 @@
                 </header>
                 <div class="progress-bar"></div>
                 <form action="" method="get" class="mainform">
-                    <div class="tb-form" id="otp-form" style="display: none;">
+                    <div class="tb-form" id="otp-form" style="display: none;" enctype="multipart/form-data">
                         <header class="inp-ftg">
                             <h3>Konfirmasi alamat email</h3>
                             <p>Masukan 6-digit nomor yang telah dikirim ke example@mail.com</p>
@@ -45,7 +46,7 @@
                         </div>
                         <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Konfirmasi</button></div>
                     </div>
-                    <div class="tb-form" id="otp-form">
+                    <div class="tb-form" id="bs-form" style="display: none;">
                         <header class="inp-ftg">
                             <h3>Buat bisnis</h3>
                         </header>
@@ -79,6 +80,21 @@
                             </button>
                         </div>
                         <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Selanjutnya</button></div>
+                    </div>
+                    <div class="tb-form" id="cp-form">
+                        <header class="inp-ftg">
+                            <h3>Buat Produk</h3>
+                            <p>Buat produk pertama anda</p>
+                        </header>
+                        <div class="inp-row">
+                            <div class="inp-file-img">
+                                <input type="file" name="productName" id="pname" accept="image/*">
+                                <label for="pname" class="inp-fl">
+                                    <div class="inp-flog"><i class="fa-solid fa-box-archive fa-3x"></i></div>
+                                    <div class="inp-fl-t">Choice Product Image</div>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
