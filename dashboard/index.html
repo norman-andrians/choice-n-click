@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../assets/styles/main.css">
     <link rel="stylesheet" href="../assets/styles/admin-page.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://kit.fontawesome.com/9833b8478b.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -65,28 +66,28 @@
             <h1>Dashboard</h1>
         </header>
         <section class="u-summary">
-            <div class="u-sum-row">
+            <div class="u-sum-row sect-b">
                 <div class="usr-det">
                     <div class="usr-val">9</div>
                     <div class="usr-t">Tranksaksi</div>
                 </div>
                 <div class="usr-ico"><i class="fa-solid fa-hand-holding-dollar fa-3x"></i></div>
             </div>
-            <div class="u-sum-row">
+            <div class="u-sum-row sect-b">
                 <div class="usr-det">
                     <div class="usr-val">12</div>
                     <div class="usr-t">Terjual</div>
                 </div>
                 <div class="usr-ico"><i class="fa-solid fa-cart-shopping fa-3x"></i></div>
             </div>
-            <div class="u-sum-row">
+            <div class="u-sum-row sect-b">
                 <div class="usr-det">
                     <div class="usr-val">3</div>
                     <div class="usr-t">Produk</div>
                 </div>
                 <div class="usr-ico"><i class="fa-solid fa-box-archive fa-3x"></i></div>
             </div>
-            <div class="u-sum-row">
+            <div class="u-sum-row sect-b">
                 <div class="usr-det">
                     <div class="usr-val">Rp56000</div>
                     <div class="usr-t">Penghasilan</div>
@@ -94,9 +95,25 @@
                 <div class="usr-ico"><i class="fa-solid fa-money-bill-trend-up fa-3x"></i></div>
             </div>
         </section>
-        <section class="u-data-diagram sect-b">
-            <h3>Penjualan</h3>
-        </section>
+        <div class="twseg-d">
+            <section class="u-data-diagram sect-b" id="uag-1">
+                <main>
+                    <h2 class="sect-b-head">Produk Terjual</h2>
+                    <div class="u-dd-barchart">
+                        <canvas id="prod-chart"></canvas>
+                    </div>
+                </main>
+            </section>
+            <section class="u-data-diagram sect-b" id="uag-2">
+                <main>
+                    <h2 class="sect-b-head">Total Penjualan</h2>
+                    <div class="u-dd-barchart">
+                        <canvas id="sales-chart"></canvas>
+                    </div>
+                </main>
+            </section>
+        </div>
     </main>
+    <script src="../assets/scripts/admin/chart-data.js"></script>
 </body>
 </html>
