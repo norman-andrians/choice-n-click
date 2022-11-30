@@ -8,7 +8,7 @@ let salesConf = {
     data: {
         labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
         datasets: [{
-            label: "Data Penjualan Pada 12 November 2022",
+            label: "Data Penjualan Pada 6-12 November 2022",
             data: [4000, 2000, 5000, 3000, 8000, 4000, 10000],
             backgroundColor: "#6C4AB6"
         }]

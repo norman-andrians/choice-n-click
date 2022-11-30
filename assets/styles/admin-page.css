@@ -12,7 +12,7 @@ body {
     flex-direction: row;
 }
 .twseg-d > section {
-    height: 15.5cm;
+    height: fit-content;
 }
 .u-main-content section.sect-b {
     color: #2c2c2c;
@@ -69,13 +69,13 @@ body {
     position: relative;
 }
 .sect-b > main {
-    padding: 20px 60px;
+    padding: 10px 40px 40px 40px;
 }
 .sect-b-head {
     font-family: 'Poppins';
 }
 #uag-1 {
-    width: 60%;
+    width: 40%;
     margin-right: 20px;
 }
 #uag-1 .u-dd-barchart {
@@ -83,4 +83,17 @@ body {
 }
 #uag-2 {
     width: 100%;
+}
+.u-main-content::-webkit-scrollbar {
+    width: 14px;
+}
+.u-main-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.u-main-content::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background: #6C4AB6;
+}
+.u-main-content::-webkit-scrollbar-thumb:hover {
+    background: #8862da;
 }
