@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700&family=Noto+Sans&family=PT+Sans:wght@400;700&family=Poppins:wght@400;700&family=Roboto:wght@400;500&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi</title>
+    <link rel="stylesheet" href="../assets/styles/animation/regular-transition.css">
+    <link rel="stylesheet" href="../assets/styles/navigation-bar.css">
+    <link rel="stylesheet" href="../assets/styles/main.css">
+    <link rel="stylesheet" href="../assets/styles/user-signlogin-page.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/9833b8478b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="main-bg">
+        <div class="inp-dp-clt"></div>
+        <div class="main-form-container">
+            <div class="main-form-base">
+                <header class="header-section">
+                    <h1>Konfirmasi</h1>
+                    <p>Konfirmasi email</p>
+                </header>
+                <form action="" method="get" class="mainform">
+                    <div class="tb-form" id="otp-form" enctype="multipart/form-data">
+                        <header class="inp-ftg">
+                            <h3>Konfirmasi alamat email</h3>
+                            <p>Masukan 6-digit nomor yang telah dikirim ke example@mail.com</p>
+                        </header>
+                        <div class="inp-row">
+                            <div class="inp-six-dig">
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1>
+                            </div>
+                        </div>
+                        <div class="inp-row">
+                            <div class="gth-btn"><button type="button">Kirim ulang (30s)</button></div>
+                        </div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Konfirmasi</button></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../assets/scripts/form/form-manajement.js"></script>
+</body>
+</html>
