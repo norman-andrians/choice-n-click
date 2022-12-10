@@ -19,14 +19,27 @@ class User {
         $this->password = $password;
     }
 
+    // Mengubah Password
     public function SetPassword($password) {
         $this->password = $password;
+    }
+
+    // Mendapatkan username sesuai objek ini dari database
+    public function GetUsername() {
+        include '../connect.php';
+
+        $query = "SELECT `username` FROM `users` WHERE `username` = $this->username";
+        $result = $connect->query($query);
+        $row = $result->fetch_assoc();
+
+        $name = $row["username"];
+
+        return $name;
     }
 
     public function CreateUserData() {
         include '../connect.php';
 
-        $id = $this->id;
         $username = $this->username;
         $nickname = $this->nickname;
         $email = $this->email;
@@ -34,17 +47,24 @@ class User {
         $password = $this->password;
         $id_business = $this->id_business;
 
-        $query = "INSERT `users` (`id`, `username`, `nickname`, `email`, `prioritas`, `password`, `id_business`) VALUES (NULL, '$username', '$nickname', '$email', '$priority', '$password', '$id_business')";
+        echo $this->GetUsername();
 
-        $connect->query($query);
+        if ($this->GetUsername() != $username) {
+            $query = "INSERT `users` (`id`, `username`, `nickname`, `email`, `prioritas`, `password`, `id_business`) VALUES (NULL, '$username', '$nickname', '$email', '$priority', '$password', '$id_business')";
+            $connect->query($query);
+            echo $this->GetUsername();
+        }
+        else {
+            echo "akun sudah tersedia";
+        }
     }
 
     public function DeleteUserData() {
         include '..connect.php';
 
-        $id = $this->id;
-
-        $query = "DELETE FROM `users` WHERE `id` = $id";
+        $username = $this->username;
+        $query = "DELETE FROM `users` WHERE `username` = $username";
+        $connect->query($query);
     }
 }
 
@@ -53,7 +73,13 @@ $userd = new User(null, 'endo', 'endo23', 'endo@mail.com', 1, 'endo123', 1);
 $userd->CreateUserData();
 
 class Business extends User {
-    public $b_id = $this->id_business;
+    public $b_id;
     public $b_name;
+    public $b_loc_prov;
+    public $b_loc_city;
+
+    public function CreateBusinessData() {
+        
+    }
 }
 ?>
