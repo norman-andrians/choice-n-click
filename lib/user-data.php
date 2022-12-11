@@ -25,19 +25,25 @@ class User {
     }
 
     // Mendapatkan username sesuai objek ini dari database
-    public function GetUsername() {
+    protected function GetUsername() {
         include '../connect.php';
 
-        $query = "SELECT `username` FROM `users` WHERE `username` = $this->username";
+        $nama = "";
+        $username = $this->username;
+
+        $query = "SELECT `username` FROM `users` WHERE `username` = '$username'";
         $result = $connect->query($query);
-        $row = $result->fetch_assoc();
-
-        $name = $row["username"];
-
-        return $name;
+        
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $nama = $row['username'];
+        }
+        
+        return $nama;
     }
 
-    public function CreateUserData() {
+    // Membuat data user
+    public function Create() {
         include '../connect.php';
 
         $username = $this->username;
@@ -47,19 +53,26 @@ class User {
         $password = $this->password;
         $id_business = $this->id_business;
 
-        echo $this->GetUsername();
-
-        if ($this->GetUsername() != $username) {
+        if ($this->GetUsername() != "$username") {
             $query = "INSERT `users` (`id`, `username`, `nickname`, `email`, `prioritas`, `password`, `id_business`) VALUES (NULL, '$username', '$nickname', '$email', '$priority', '$password', '$id_business')";
             $connect->query($query);
-            echo $this->GetUsername();
         }
         else {
-            echo "akun sudah tersedia";
+            // Error: `username` sudah tersedia
         }
     }
 
-    public function DeleteUserData() {
+    // Membaca seluruh data kolom dalam satu baris dan mengembalikannya menjadi mysqli_result
+    public function Read() {
+        include '../connect.php';
+
+        $query = "SELECT * FROM `users` WHERE `id` = 1";
+        $result = $connect->query($query);
+
+        return $result;
+    }
+
+    public function Delete() {
         include '..connect.php';
 
         $username = $this->username;
@@ -67,10 +80,6 @@ class User {
         $connect->query($query);
     }
 }
-
-$userd = new User(null, 'endo', 'endo23', 'endo@mail.com', 1, 'endo123', 1);
-
-$userd->CreateUserData();
 
 class Business extends User {
     public $b_id;
