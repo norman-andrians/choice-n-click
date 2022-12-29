@@ -1,3 +1,9 @@
+<?php
+include '../connect.php';
+
+$nicknameExist = isset($_GET['nicknameHas']) && $_GET['nicknameHas'] == "exist";
+$emailExist = isset($_GET['emailHas']) && $_GET['emailHas'] == "exist";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +13,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datfar</title>
+    <title>Daftar</title>
     <link rel="stylesheet" href="../assets/styles/animation/regular-transition.css">
     <link rel="stylesheet" href="../assets/styles/navigation-bar.css">
     <link rel="stylesheet" href="../assets/styles/main.css">
@@ -28,20 +34,29 @@
             <div class="main-form-base">
                 <header class="header-section">
                     <h1>Daftar</h1>
-                    <p>Daftarkan dirimu untuk memulai kemudahan bisnis</p>
+                    <p>Buat kamu yang belum punya akun, yuk segera buat</p>
                 </header>
-                <form action="finishing.html" method="get" class="main-form">
+                <form action="finishing.php" method="post" class="main-form">
                     <div class="inp-row">
                         <!--<div class="inp-label"><label for="nickname">Nickname<span class="require-symbol">*</span> (Tidak boleh spasi)</label></div> -->
                         <div class="inp-text"><div class="inp-bg"></div><input type="text" name="nickname" id="nickname" placeholder="Nickname*"></div>
                     </div>
                     <div class="inp-row">
-                        <!--<div class="inp-label"><label for="username">Nama Pengguna<span class="require-symbol">*</span></label></div> -->
-                        <div class="inp-text"><div class="inp-bg"></div><input type="text" name="username" id="username" placeholder="Nama Pengguna*"></div>
-                    </div>
-                    <div class="inp-row">
                         <!--<div class="inp-label"><label for="email">Email<span class="require-symbol">*</span></label></div> -->
-                        <div class="inp-text"><div class="inp-bg"></div><input type="email" name="usermail" id="email" placeholder="Email*"></div>
+                        <div class="inp-text"><div class="inp-bg"></div><input type="email" name="email" id="email" placeholder="Email*"></div>
+                    </div>
+                    <div class="warn-text">
+                        <?php
+                        if ($nicknameExist && $emailExist) {
+                            echo "Nickname dan email sudah tersedia, disarankan nickname disertai nomor atau simbol";
+                        }
+                        else if ($nicknameExist) {
+                            echo "Nickname sudah tersedia, disarankan disertai nomor atau simbol";
+                        }
+                        else if ($emailExist) {
+                            echo "Email sudah tersedia";
+                        }
+                        ?>
                     </div>
                     <!--
                     <div class="inp-row">
@@ -49,7 +64,7 @@
                         <div class="inp-text"><input type="tel" name="telpnum" id="telp" placeholder="No. Telp*"></div>
                     </div>
                     -->
-                    <div class="inp-sub"><button id="sub-btn" type="button">Lanjutkan</button></div>
+                    <div class="inp-sub"><button id="sub-btn" type="submit" name="signin" value="yes">Lanjutkan</button></div>
                     <div class="hcp-text">Sudah punya akun? <a href="../login">Login</a></div>
                 </form>
             </div>

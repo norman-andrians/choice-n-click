@@ -19,17 +19,19 @@ class User {
     public $username;
     public $nickname;
     public $email;
+    public $image;
     public $priority;
 
     protected $password;
+    protected $id_image;
     protected $id_business;
 
     // Construktor hanya terdiri dari 'id', 'username', dan 'email' untuk entry data dalam kelas dasar
     // Bisa disebut juga data sementara, ini tidak disimpan dalam cookie
     // * id business tidak boleh di konstruktor karena kelas business dulu yang harus dibuat
-    public function __construct($id, $username, $email) {
+    public function __construct($id, $nickname, $email) {
         $this->id = $id;
-        $this->username = $username;
+        $this->nickname = $nickname;
         $this->email = $email;
     }
 
@@ -59,13 +61,14 @@ class User {
     }
 
     // Mendapatkan username sesuai objek ini dari database
-    protected function GetUsername() {
+    protected function GetNickname() {
         include '../connect.php';
 
         $nama = "";
+        $id = $this->id;
         $username = $this->username;
 
-        $query = "SELECT `username` FROM `users` WHERE `username` = '$username'";
+        $query = "SELECT `nickname` FROM `users` WHERE `id` = '$id'";
         $result = $connect->query($query);
         
         if ($result->num_rows == 1) {
@@ -76,25 +79,73 @@ class User {
         return $nama;
     }
 
-    // Membuat data user
-    public function Create($nickname, $priority, $pw, $id_business) {
+
+    static function idExist($id) {
         include '../connect.php';
 
-        $this->nickname = $nickname;
+        $query = "SELECT * FROM `users` WHERE `id` = '$id'";
+        $result = $connect->query($query);
+        
+        if ($result->num_rows == 1) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    static function nicknameExist($nickname) {
+        include '../connect.php';
+
+        $query = "SELECT * FROM `users` WHERE `nickname` = '$nickname'";
+        $result = $connect->query($query);
+        
+        if ($result->num_rows == 1) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    static function emailExist($email) {
+        include '../connect.php';
+
+        $query = "SELECT * FROM `users` WHERE `email` = '$email'";
+        $result = $connect->query($query);
+        
+        if ($result->num_rows == 1) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    // Membuat data user
+    public function Create($username, $priority, $pw, $image, $id_business) {
+        include '../connect.php';
+        include './user-data.php';
+
+        $this->username = $username;
         $this->priority = $priority;
         $this->password = $pw;
+        $this->image = $image;
         $this->id_business = $id_business;
 
-        $username = $this->username;
+        $nickname = $this->nickname;
         $email = $this->email;
 
-        if ($this->GetUsername() != "$username") {
+        $image_name = "user_" . $nickname . "_" . $id;
+        $image_maxsize = 5000000; // max 5mb upload
+
+        $img = new Image($image);
+
+        if ($this->GetNickname() != "$nickname") {
             $query = "INSERT `users` (`id`, `username`, `nickname`, `email`, `prioritas`, `password`, `id_business`) VALUES (NULL, '$username', '$nickname', '$email', '$priority', '$pw', '$id_business')";
 
-            
+            $connect->query($query);
+            $img->Create($image_name, $image_maxsize);
         }
         else {
-            // Error: `username` sudah tersedia
+            // Error: `nickname` sudah tersedia
         }
     }
 
@@ -104,7 +155,7 @@ class User {
 
         $id = $this->id;
 
-        $query = "SELECT * FROM `users` WHERE `id` = $id";
+        $query = "SELECT * FROM `users` WHERE `id` = 3";
         $result = $connect->query($query);
 
         return $result;
@@ -153,19 +204,42 @@ class User {
         $query = "DELETE FROM `users` WHERE `username` = $username";
         $connect->query($query);
     }
+
+    static function GenerateOTP() {
+        return rand(100000, 999999);
+    }
+
+    static function isOTPCorrect($input) {
+        $code = $_COOKIE['otp_code'];
+
+        if ($input == $code) {
+            return true;
+        }
+        else { return false; }
+    }
+
+    public function sendOTP($code) {
+        $to = $this->email;
+        $subject = "Verifikasi kode OTP Choice N Click";
+        $message = "
+        <html>
+        <head>
+            <title>Verifikasi 6-digit kode OTP</title>
+        </head>
+        <body>
+            <h1>Selamat Datang di Choice N Click!</h1>
+            <p>Kami ingin mengkonfirmasi bahwa alamat email ini adalah milik anda. Silahkan masukan kode OTP dibawah ini</p>
+            <h3>$code</h3>
+            <p>Jika ini bukan anda yang membuat akun, segera hapus</p>
+        </body>
+        </html>
+        ";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        mail($to, $subject, $message, $headers);
+    }
+
 }
-
-$userd = new User(null, "erand", "ernad@example.com");
-$userd->Create("erand333", 0, "ender1234", 8);
-
-$data = $userd->Read();
-$r = $data->fetch_assoc();
-
-
-echo "id: ".$r['id']."<br>";
-echo "username: ".$r['username']."<br>";
-echo "nickname: ".$r['nickname']."<br>";
-echo "email: ".$r['email']."<br>";
 
 class Business extends User {
     public $b_id;
@@ -173,8 +247,19 @@ class Business extends User {
     public $b_loc_prov;
     public $b_loc_city;
 
-    public function CreateBusinessData() {
-        
+    public function __construct($id, $name, $loc_prov, $loc_city) {
+        $this->b_id = $id;
+        $this->b_name = $name;
+        $this->b_loc_prov = $loc_prov;
+        $this->b_loc_city = $loc_city;
     }
+}
+
+class ProductCategory extends Business {
+
+}
+
+class Product extends ProductCategory {
+    
 }
 ?>

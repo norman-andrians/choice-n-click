@@ -1,3 +1,35 @@
+<?php
+include '../connect.php';
+include '../lib/user-data.php';
+
+if (isset($_POST['signin'])) {
+    $nickname = $_POST['nickname'];
+    $email = $_POST['email'];
+
+    $userDatabase_Exist = !User::nicknameExist($nickname) && !User::emailExist($email);
+    $userCookie_Exist = isset($_COOKIE['registered']) && isset($_COOKIE['step_passed']);
+    $userRegistered = filter_var($_COOKIE['registered'], FILTER_VALIDATE_BOOLEAN) == false;
+
+    if ($userDatabase_Exist && $userCookie_Exist && $userRegistered) {
+        $user = new User(null, $nickname, $email);
+
+        $expdate = time() + (86400 * 7);
+        $path = "/user/";
+
+        setcookie("nickname", $nickname, $expdate, $path);
+        setcookie("email", $email, $expdate, $path);
+        setcookie("registered", false, $expdate, $path);
+        setcookie("step_passed", 0, $expdate, $path);
+    }
+    else {
+        if (User::nicknameExist($nickname) && User::emailExist($email)) {
+            header("location:index.php?nicknameHas=exist&emailHas=exist");
+        }
+        else if (User::nicknameExist($nickname)) { header("location:index.php?nicknameHas=exist"); }
+        else if (User::emailExist($email)) { header("location:index.php?emailHas=exist"); }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +39,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finishing just 3 steps</title>
+    <title>Finishing just 4 steps</title>
     <link rel="stylesheet" href="../assets/styles/animation/regular-transition.css">
     <link rel="stylesheet" href="../assets/styles/navigation-bar.css">
     <link rel="stylesheet" href="../assets/styles/main.css">
@@ -15,6 +47,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/9833b8478b.js" crossorigin="anonymous"></script>
 </head>
+<?php
+$cookie_exist = isset($_COOKIE['nickname']) && isset($_COOKIE['email']) && isset($_COOKIE['registered']) && isset($_COOKIE['step_passed']);
+
+$nickname = isset($_COOKIE['nickname']) ? $_COOKIE['nickname'] : false;
+$email = isset($_COOKIE['email']) ? $_COOKIE['email'] : false;
+$registered = isset($_COOKIE['registered']) ? $_COOKIE['registered'] : false;
+$step_passed = isset($_COOKIE['step_passed']) ? $_COOKIE['step_passed'] : false;
+
+$user;
+
+/*
+else {
+    header("location:index.php");
+}
+*/
+?>
 <body>
     <div class="main-bg">
         <div class="inp-dp-clt"></div>
@@ -22,14 +70,32 @@
             <div class="main-form-base">
                 <header class="header-section">
                     <h1>4 Langkah</h1>
-                    <p>Vertifikasi 4 langkah untuk memulai</p>
+                    <p>Isi beberapa formulir dalam 4 langkah setelah itu kamu baru bisa memulai. Perlu diingat semua formulir ini harus secepatnya diisi sebelum tanggal</p>
                 </header>
                 <div class="progress-bar"></div>
-                <form action="" method="get" class="mainform">
-                    <div class="tb-form" id="otp-form" style="display: none;" enctype="multipart/form-data">
+                <form action="finishing.php" method="post" class="mainform" enctype="multipart/form-data">
+                    <?php
+                    if ($cookie_exist && isset($_POST['signin'])) {
+                        $user = new User(null, $nickname, $email);
+                    
+                        switch ($step_passed) {
+                            case 0:
+                                if (!isset($_COOKIE['otp_code'])) {
+                                    setcookie("otp_code", $user, time() + 300, $path);
+
+                                    $code = User::GenerateOTP();
+                                    $user->sendOTP($code);
+                                }
+                                else {
+                                    if (isset($_POST['sendOTP'])) {
+                                        // tambah send
+                                    }
+                                }
+                    ?>
+                    <div class="tb-form" id="otp-form">
                         <header class="inp-ftg">
                             <h3>Konfirmasi alamat email</h3>
-                            <p>Masukan 6-digit nomor yang telah dikirim ke example@mail.com</p>
+                            <p>Masukan 6-digit nomor yang telah dikirim ke <?php echo $email; ?></p>
                         </header>
                         <div class="inp-row">
                             <div class="inp-six-dig">
@@ -44,9 +110,15 @@
                         <div class="inp-row">
                             <div class="gth-btn"><button type="button">Kirim ulang (30s)</button></div>
                         </div>
-                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Konfirmasi</button></div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit" name="sendOTP">Konfirmasi</button></div>
                     </div>
-                    <div class="tb-form" id="pw-form">
+                    <?php
+                                break;
+                            case 1:
+                        }
+                    }
+                    ?>
+                    <div class="tb-form" id="pw-form" style="display: none;">
                         <header class="inp-ftg">
                             <h3>Buat Password</h3>
                         </header>
