@@ -6,11 +6,7 @@ if (isset($_POST['signin'])) {
     $nickname = $_POST['nickname'];
     $email = $_POST['email'];
 
-    $userDatabase_Exist = !User::nicknameExist($nickname) && !User::emailExist($email);
-    $userCookie_Exist = isset($_COOKIE['registered']) && isset($_COOKIE['step_passed']);
-    $userRegistered = filter_var($_COOKIE['registered'], FILTER_VALIDATE_BOOLEAN) == false;
-
-    if ($userDatabase_Exist && $userCookie_Exist && $userRegistered) {
+    if (!User::nicknameExist($nickname) && !User::emailExist($email)) {
         $user = new User(null, $nickname, $email);
 
         $expdate = time() + (86400 * 7);
@@ -48,6 +44,8 @@ if (isset($_POST['signin'])) {
     <script src="https://kit.fontawesome.com/9833b8478b.js" crossorigin="anonymous"></script>
 </head>
 <?php
+
+session_start();
 $cookie_exist = isset($_COOKIE['nickname']) && isset($_COOKIE['email']) && isset($_COOKIE['registered']) && isset($_COOKIE['step_passed']);
 
 $nickname = isset($_COOKIE['nickname']) ? $_COOKIE['nickname'] : false;
@@ -75,7 +73,9 @@ else {
                 <div class="progress-bar"></div>
                 <form action="finishing.php" method="post" class="mainform" enctype="multipart/form-data">
                     <?php
-                    if ($cookie_exist && isset($_POST['signin'])) {
+                    $userRegistered = filter_var($registered, FILTER_VALIDATE_BOOLEAN) == true;
+
+                    if ($cookie_exist && !$userRegistered) {
                         $user = new User(null, $nickname, $email);
                     
                         switch ($step_passed) {
@@ -85,10 +85,23 @@ else {
 
                                     $code = User::GenerateOTP();
                                     $user->sendOTP($code);
+
+                                    header("location:finishing.php");
                                 }
                                 else {
-                                    if (isset($_POST['sendOTP'])) {
-                                        // tambah send
+                                    if (isset($_POST['sendOTP']) && isset($_COOKIE['otp_code'])) {
+                                        $input = $_POST['sendOTP'];
+                                        $code = $_COOKIE['otp_code'];
+                                        $step_passed = $_COOKIE['step_passed'];
+
+                                        if ($input == $code) {
+                                            $step_passed++;
+                                            header("location:finishing.php");
+                                        }
+                                    }
+
+                                    if (isset($_COOKIE['otp_code'])) {
+                                        echo "your OTP Code is " + $_COOKIE['otp_code'];
                                     }
                                 }
                     ?>
@@ -115,8 +128,6 @@ else {
                     <?php
                                 break;
                             case 1:
-                        }
-                    }
                     ?>
                     <div class="tb-form" id="pw-form" style="display: none;">
                         <header class="inp-ftg">
@@ -130,6 +141,11 @@ else {
                         </div>
                         <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Konfirmasi</button></div>
                     </div>
+                    <?php
+                                break;       
+                        }
+                    }
+                    ?>
                     <div class="tb-form" id="bs-form" style="display: none;">
                         <header class="inp-ftg">
                             <h3>Buat bisnis</h3>
