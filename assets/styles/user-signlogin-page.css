@@ -1,7 +1,8 @@
-.main-bg {
+body {
     background-color: #6C4AB6;
     background-image: url(../images/losign-page/background.svg);
     background-size: cover;
+    background-attachment: fixed;
     position: relative;
     height: 100vh;
 }
@@ -9,14 +10,16 @@
 .main-form-container {
     position: absolute;
     background-color: white;
-    top: 50%;
+    top: 60px;
+    bottom: 60px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     padding: 30px;
     border-radius: 8px;
     color: #575757;
     font-family: 'pt sans';
     width: 10cm;
+    height: fit-content;
 }
 
 .main-form-container .header-section > h1 {

@@ -2,6 +2,8 @@
 include '../connect.php';
 include '../lib/user-data.php';
 
+setcookie("idk", "rawr", time()+(60*2), "/");
+
 if (isset($_POST['signin'])) {
     $nickname = $_POST['nickname'];
     $email = $_POST['email'];
@@ -10,12 +12,13 @@ if (isset($_POST['signin'])) {
         $user = new User(null, $nickname, $email);
 
         $expdate = time() + (86400 * 7);
-        $path = "/user/";
+        $path = "/";
 
         setcookie("nickname", $nickname, $expdate, $path);
         setcookie("email", $email, $expdate, $path);
-        setcookie("registered", false, $expdate, $path);
+        setcookie("registered", 0, $expdate, $path);
         setcookie("step_passed", 0, $expdate, $path);
+
     }
     else {
         if (User::nicknameExist($nickname) && User::emailExist($email)) {
@@ -45,7 +48,6 @@ if (isset($_POST['signin'])) {
 </head>
 <?php
 
-session_start();
 $cookie_exist = isset($_COOKIE['nickname']) && isset($_COOKIE['email']) && isset($_COOKIE['registered']) && isset($_COOKIE['step_passed']);
 
 $nickname = isset($_COOKIE['nickname']) ? $_COOKIE['nickname'] : false;
@@ -68,12 +70,12 @@ else {
             <div class="main-form-base">
                 <header class="header-section">
                     <h1>4 Langkah</h1>
-                    <p>Isi beberapa formulir dalam 4 langkah setelah itu kamu baru bisa memulai. Perlu diingat semua formulir ini harus secepatnya diisi sebelum tanggal</p>
+                    <p>Isi beberapa formulir dalam 4 langkah setelah itu kamu baru bisa memulai.</p>
                 </header>
                 <div class="progress-bar"></div>
                 <form action="finishing.php" method="post" class="mainform" enctype="multipart/form-data">
                     <?php
-                    $userRegistered = filter_var($registered, FILTER_VALIDATE_BOOLEAN) == true;
+                    $userRegistered = (bool)$registered;
 
                     if ($cookie_exist && !$userRegistered) {
                         $user = new User(null, $nickname, $email);
@@ -81,34 +83,38 @@ else {
                         switch ($step_passed) {
                             case 0:
                                 if (!isset($_COOKIE['otp_code'])) {
-                                    setcookie("otp_code", $user, time() + 300, $path);
-
                                     $code = User::GenerateOTP();
                                     $user->sendOTP($code);
 
+                                    setcookie("otp_code", $code, time() + 300, "/");
                                     header("location:finishing.php");
                                 }
                                 else {
                                     if (isset($_POST['sendOTP']) && isset($_COOKIE['otp_code'])) {
-                                        $input = $_POST['sendOTP'];
+                                        $input = $_POST['fullcode'];
                                         $code = $_COOKIE['otp_code'];
                                         $step_passed = $_COOKIE['step_passed'];
 
                                         if ($input == $code) {
                                             $step_passed++;
+
+                                            $expdate = time() + (86400 * 7);
+                                            $path = "/";
+                                            
+                                            setcookie("otp_code", 0, time() - 3600, $path);
+                                            setcookie("step_passed", $step_passed, $expdate, $path);
                                             header("location:finishing.php");
                                         }
                                     }
-
                                     if (isset($_COOKIE['otp_code'])) {
-                                        echo "your OTP Code is " + $_COOKIE['otp_code'];
+                                        echo "your OTP Code is " . $_COOKIE['otp_code'];
                                     }
                                 }
                     ?>
                     <div class="tb-form" id="otp-form">
                         <header class="inp-ftg">
                             <h3>Konfirmasi alamat email</h3>
-                            <p>Masukan 6-digit nomor yang telah dikirim ke <?php echo $email; ?></p>
+                            <p>Masukan 6-digit kode yang telah dikirim ke <?php echo $email; ?></p>
                         </header>
                         <div class="inp-row">
                             <div class="inp-six-dig">
@@ -119,19 +125,68 @@ else {
                                 <input type="number" name="confcode" maxlength=1>
                                 <input type="number" name="confcode" maxlength=1>
                             </div>
+                            <input type="hidden" name="fullcode" value="" id="fullcode">
                         </div>
                         <div class="inp-row">
                             <div class="gth-btn"><button type="button">Kirim ulang (30s)</button></div>
                         </div>
-                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit" name="sendOTP">Konfirmasi</button></div>
+                        <div class="error-text">
+                            <?php
+                            $isSendedOTP = isset($_POST['sendOTP']) && isset($_COOKIE['otp_code']);
+
+                            if ($isSendedOTP) {
+                                $input = $_POST['fullcode'];
+                                $code = $_COOKIE['otp_code'];
+
+                                if ($input != $code) {
+                                    echo "Kode OTP yang anda masukan salah";
+                                }
+                            }
+                            ?>
+                        </div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit" name="sendOTP" value="send">Konfirmasi</button></div>
                     </div>
                     <?php
                                 break;
                             case 1:
+                                $isFilled = isset($_POST['username']) && isset($_POST['cpw']);
+
+                                if (isset($_POST['create']) && $isFilled) {
+                                    $username = $_POST['username'];
+                                    $password = $_POST['cpw'];
+
+                                    $expdate = time() + (86400 * 7);
+                                    $path = "/";
+
+                                    $step_passed++;
+
+                                    setcookie("username", $username, $expdate, $path);
+                                    setcookie("password", $password, $expdate, $path);
+                                    setcookie("step_passed", $step_passed, $expdate, $path);
+
+                                    header("location:finishing.php");
+                                }
                     ?>
-                    <div class="tb-form" id="pw-form" style="display: none;">
+                    <div class="tb-form" id="pw-form">
                         <header class="inp-ftg">
-                            <h3>Buat Password</h3>
+                            <h3>Buat Akun</h3>
+                        </header>
+                        <!--
+                        <div class="inp-row">
+                            <div class="inp-file-img">
+                                <input type="file" name="profileName" id="pname" accept="image/*">
+                                <label for="pname" class="inp-fl">
+                                    <div class="inp-flog"><i class="fa-solid fa-user fa-3x"></i></div>
+                                    <div class="inp-fl-t">Upload Foto Profil</div>
+                                </label>
+                            </div>
+                        </div>
+                        -->
+                        <div class="inp-row">
+                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="username" id="username" placeholder="Nama lengkap*"></div>
+                        </div>
+                        <header class="inp-ftg">
+                            <h3>Buat Password Baru</h3>
                         </header>
                         <div class="inp-row">
                             <div class="inp-text"><div class="inp-bg"></div><input type="text" name="npw" id="npw" placeholder="Password Baru*"></div>
@@ -139,12 +194,11 @@ else {
                         <div class="inp-row">
                             <div class="inp-text"><div class="inp-bg"></div><input type="text" name="cpw" id="cpw" placeholder="Konfirmasi Password*"></div>
                         </div>
-                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Konfirmasi</button></div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit" name="create" value="user">Selanjutnya</button></div>
                     </div>
                     <?php
-                                break;       
-                        }
-                    }
+                                break;    
+                            case 2:
                     ?>
                     <div class="tb-form" id="bs-form" style="display: none;">
                         <header class="inp-ftg">
@@ -181,6 +235,11 @@ else {
                         </div>
                         <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Selanjutnya</button></div>
                     </div>
+                    <?php
+                                    break;
+                        }
+                    }
+                    ?>
                     <div class="tb-form" id="cp-form" style="display: none;">
                         <header class="inp-ftg">
                             <h3>Buat Produk</h3>

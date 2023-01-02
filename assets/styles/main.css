@@ -8,6 +8,6 @@ button {
     cursor: pointer;
 }
 
-span.require-symbol {
+span.require-symbol, .error-text {
     color: red;
 }

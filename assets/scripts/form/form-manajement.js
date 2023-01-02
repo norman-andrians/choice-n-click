@@ -76,6 +76,14 @@ function otpInput() {
     for (let i = 0; i < inpOtp.length; i++) {
         inpOtp[i].addEventListener('input', () => {
             inpOtp[i].value = inpOtp[i].value.length > inpOtp[i].maxLength ? inpOtp[i].value.slice(0, inpOtp[i].maxLength) : inpOtp[i].value;
+
+            let fullcode = "";
+
+            for (let c of inpOtp) {
+                fullcode += c.value;
+            }
+
+            $('#fullcode').val(fullcode);
         });
         inpOtp[i].addEventListener('keyup', (ev) => {
             if (i < inpOtp.length - 1 && ev.keyCode != keycodes.backspace) {

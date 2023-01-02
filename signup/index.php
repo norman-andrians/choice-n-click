@@ -45,7 +45,7 @@ $emailExist = isset($_GET['emailHas']) && $_GET['emailHas'] == "exist";
                         <!--<div class="inp-label"><label for="email">Email<span class="require-symbol">*</span></label></div> -->
                         <div class="inp-text"><div class="inp-bg"></div><input type="email" name="email" id="email" placeholder="Email*"></div>
                     </div>
-                    <div class="warn-text">
+                    <div class="error-text">
                         <?php
                         if ($nicknameExist && $emailExist) {
                             echo "Nickname dan email sudah tersedia, disarankan nickname disertai nomor atau simbol";
