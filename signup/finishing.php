@@ -28,6 +28,9 @@ if (isset($_POST['signin'])) {
         else if (User::emailExist($email)) { header("location:index.php?emailHas=exist"); }
     }
 }
+
+setcookie("step_passed", 1, time() + (86400 * 7), "/");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +59,7 @@ $registered = isset($_COOKIE['registered']) ? $_COOKIE['registered'] : false;
 $step_passed = isset($_COOKIE['step_passed']) ? $_COOKIE['step_passed'] : false;
 
 $user;
+
 
 /*
 else {
@@ -149,10 +153,11 @@ else {
                     <?php
                                 break;
                             case 1:
-                                $isFilled = isset($_POST['username']) && isset($_POST['cpw']);
+                                $isFilled = isset($_POST['username']) && isset($_POST['telphone']) && isset($_POST['cpw']);
 
                                 if (isset($_POST['create']) && $isFilled) {
                                     $username = $_POST['username'];
+                                    $telphone = $_POST['telphone'];
                                     $password = $_POST['cpw'];
 
                                     $expdate = time() + (86400 * 7);
@@ -161,6 +166,7 @@ else {
                                     $step_passed++;
 
                                     setcookie("username", $username, $expdate, $path);
+                                    setcookie("phonenum", $telphone, $expdate, $path);
                                     setcookie("password", $password, $expdate, $path);
                                     setcookie("step_passed", $step_passed, $expdate, $path);
 
@@ -185,6 +191,9 @@ else {
                         <div class="inp-row">
                             <div class="inp-text"><div class="inp-bg"></div><input type="text" name="username" id="username" placeholder="Nama lengkap*"></div>
                         </div>
+                        <div class="inp-row">
+                            <div class="inp-text"><div class="inp-bg"></div><input type="tel" name="telphone" id="telphone" placeholder="Nomor Telepon*"></div>
+                        </div>
                         <header class="inp-ftg">
                             <h3>Buat Password Baru</h3>
                         </header>
@@ -192,7 +201,7 @@ else {
                             <div class="inp-text"><div class="inp-bg"></div><input type="text" name="npw" id="npw" placeholder="Password Baru*"></div>
                         </div>
                         <div class="inp-row">
-                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="cpw" id="cpw" placeholder="Konfirmasi Password*"></div>
+                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="cpw" id="cpw" placeholder="Isi Ulang Password*"></div>
                         </div>
                         <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit" name="create" value="user">Selanjutnya</button></div>
                     </div>

@@ -149,7 +149,6 @@ function BusinessInput() {
 }
 
 $(document).ready(() => {
-    BusinessInput();
     checkInput();
     for (let i = 0; i < inptext.length; i++) {
         inptext[i].children[1].addEventListener("focusin", () => { inptext[i].children[0].style.width = "100%"; });
@@ -157,6 +156,11 @@ $(document).ready(() => {
         inptext[i].children[1].addEventListener("input", () => { checkInput(); });
     }
 
-    inpOtp[0].focus();
-    otpInput();
+    if (document.getElementById("otp-form")) {
+        inpOtp[0].focus();
+        otpInput();
+    }
+    else if (document.getElementById("bs-form")) {
+        BusinessInput();
+    }
 });

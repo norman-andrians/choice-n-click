@@ -19,6 +19,7 @@ class User {
     public $username;
     public $nickname;
     public $email;
+    public $p_number;
     public $image;
     public $priority;
 
@@ -120,11 +121,12 @@ class User {
     }
 
     // Membuat data user
-    public function Create($username, $priority, $pw, $image, $id_business) {
+    public function Create($username, $phone_number, $priority, $pw, $image, $id_business) {
         include '../connect.php';
         include './user-data.php';
 
         $this->username = $username;
+        $this->p_number = $phone_number;
         $this->priority = $priority;
         $this->password = $pw;
         $this->image = $image;
