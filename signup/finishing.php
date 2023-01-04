@@ -2,8 +2,6 @@
 include '../connect.php';
 include '../lib/user-data.php';
 
-setcookie("idk", "rawr", time()+(60*2), "/");
-
 if (isset($_POST['signin'])) {
     $nickname = $_POST['nickname'];
     $email = $_POST['email'];
@@ -122,12 +120,12 @@ else {
                         </header>
                         <div class="inp-row">
                             <div class="inp-six-dig">
-                                <input type="number" name="confcode" maxlength=1>
-                                <input type="number" name="confcode" maxlength=1>
-                                <input type="number" name="confcode" maxlength=1>
-                                <input type="number" name="confcode" maxlength=1>
-                                <input type="number" name="confcode" maxlength=1>
-                                <input type="number" name="confcode" maxlength=1>
+                                <input type="number" name="confcode" maxlength=1 min=0 max=9>
+                                <input type="number" name="confcode" maxlength=1 min=0 max=9>
+                                <input type="number" name="confcode" maxlength=1 min=0 max=9>
+                                <input type="number" name="confcode" maxlength=1 min=0 max=9>
+                                <input type="number" name="confcode" maxlength=1 min=0 max=9>
+                                <input type="number" name="confcode" maxlength=1 min=0 max=9>
                             </div>
                             <input type="hidden" name="fullcode" value="" id="fullcode">
                         </div>
@@ -148,7 +146,7 @@ else {
                             }
                             ?>
                         </div>
-                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit" name="sendOTP" value="send">Konfirmasi</button></div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="button" name="sendOTP" value="send">Konfirmasi</button></div>
                     </div>
                     <?php
                                 break;
@@ -173,7 +171,7 @@ else {
                                     header("location:finishing.php");
                                 }
                     ?>
-                    <div class="tb-form" id="pw-form">
+                    <div class="tb-form" id="ca-form">
                         <header class="inp-ftg">
                             <h3>Buat Akun</h3>
                         </header>
@@ -189,21 +187,25 @@ else {
                         </div>
                         -->
                         <div class="inp-row">
-                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="username" id="username" placeholder="Nama lengkap*"></div>
+                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="username" id="username" placeholder="Nama lengkap*" required></div>
+                            <div class="error-input"></div>
                         </div>
                         <div class="inp-row">
-                            <div class="inp-text"><div class="inp-bg"></div><input type="tel" name="telphone" id="telphone" placeholder="Nomor Telepon*"></div>
+                            <div class="inp-text"><div class="inp-bg"></div><input type="number" name="telphone" id="telphone" placeholder="Nomor Telepon*" min="80000" max="999999" required></div>
+                            <div class="error-input"></div>
                         </div>
                         <header class="inp-ftg">
                             <h3>Buat Password Baru</h3>
                         </header>
                         <div class="inp-row">
-                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="npw" id="npw" placeholder="Password Baru*"></div>
+                            <div class="inp-text"><div class="inp-bg"></div><input type="password" name="npw" id="npw" placeholder="Password Baru*" required></div>
+                            <div class="error-input"></div>
                         </div>
                         <div class="inp-row">
-                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="cpw" id="cpw" placeholder="Isi Ulang Password*"></div>
+                            <div class="inp-text"><div class="inp-bg"></div><input type="password" name="cpw" id="cpw" placeholder="Isi Ulang Password*" required></div>
+                            <div class="error-input"></div>
                         </div>
-                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit" name="create" value="user">Selanjutnya</button></div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="button" name="create" value="user">Selanjutnya</button></div>
                     </div>
                     <?php
                                 break;    

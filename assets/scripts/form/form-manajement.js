@@ -1,9 +1,9 @@
 import * as fdata from "../data/form-data.js"
-import regData from "../data/lib/json-nama-daerah-indonesia/regions.json" assert { type: 'json' }
+// import regData from "../data/lib/json-nama-daerah-indonesia/regions.json" assert { type: 'json' }
 import { DropDownSettings } from "./special-form.js"
 
 const inptext = document.querySelectorAll(".inp-text");
-const inpOtp = document.querySelector(".inp-six-dig").children;
+// const inpOtp = document.querySelector(".inp-six-dig").children;
 
 const keycodes = {
     "backspace" : 8,
@@ -68,7 +68,19 @@ function checkInput() {
             }
         );
     }
+}
 
+function otpValidation() {
+    const otpValue = document.getElementById("fullcode");
+    const submitBtn = document.getElementById("sub-nito-btn");
+    const errorField = document.querySelector(".error-text");
+
+    if (otpValue.value.length < 6) {
+        errorField.innerHTML = "Mohon lengkapi kode otp terlebih dahulu";
+    }
+    else {
+        submitBtn.type = "submit";
+    }
 }
 
 // fungsi untuk navigasi input kode otp
@@ -83,7 +95,7 @@ function otpInput() {
                 fullcode += c.value;
             }
 
-            $('#fullcode').val(fullcode);
+            document.getElementById("fullcode").value = fullcode;
         });
         inpOtp[i].addEventListener('keyup', (ev) => {
             if (i < inpOtp.length - 1 && ev.keyCode != keycodes.backspace) {
@@ -110,6 +122,31 @@ function otpInput() {
 
         inpOtp[i].addEventListener('focusin', () => { inpOtp[i].style.transform = "scale(1.1)" });
         inpOtp[i].addEventListener('focusout', () => { inpOtp[i].style.transform = "scale(1)" });
+    }
+}
+
+function passwordValidation() {
+    const password1 = document.getElementById("cpw").value;
+    const password2 = document.getElementById("npw").value;
+    const submitBtn = document.getElementById("sub-nito-btn");
+    
+    const errorField = document.querySelector(".error-text");
+
+    if (password1 == password2) {
+        submitBtn.type = "submit";
+    }
+    else {
+        errorField.innerHTML = "Kedua password yang diisi tidak sama";
+    }
+}
+
+function createAccountValidation() {
+    for (let i = 0; i < inptext.length; i++) {
+        if (inptext[i].children[1].required == true) {
+            inptext[i].children[1].addEventListener("focusout", () => {
+                console.log("out");
+            });
+        }
     }
 }
 
@@ -149,7 +186,9 @@ function BusinessInput() {
 }
 
 $(document).ready(() => {
-    checkInput();
+    const submitBtn = document.getElementById("sub-nito-btn");
+
+    // checkInput();
     for (let i = 0; i < inptext.length; i++) {
         inptext[i].children[1].addEventListener("focusin", () => { inptext[i].children[0].style.width = "100%"; });
         inptext[i].children[1].addEventListener("focusout", () => { inptext[i].children[0].style.width = "0%"; });
@@ -159,6 +198,11 @@ $(document).ready(() => {
     if (document.getElementById("otp-form")) {
         inpOtp[0].focus();
         otpInput();
+
+        submitBtn.addEventListener("click", otpValidation);
+    }
+    else if (document.getElementById("ca-form")) {
+        createAccountValidation();
     }
     else if (document.getElementById("bs-form")) {
         BusinessInput();
