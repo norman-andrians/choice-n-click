@@ -205,6 +205,7 @@ else {
                             <div class="inp-text"><div class="inp-bg"></div><input type="password" name="cpw" id="cpw" placeholder="Isi Ulang Password*" required></div>
                             <div class="error-input"></div>
                         </div>
+                        <div class="error-text"></div>
                         <div class="inp-sub-nito"><button id="sub-nito-btn" type="button" name="create" value="user">Selanjutnya</button></div>
                     </div>
                     <?php
