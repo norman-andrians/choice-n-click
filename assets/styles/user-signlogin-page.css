@@ -66,6 +66,10 @@ body {
 .main-form-container .inp-row > .inp-text > input::placeholder {
     color: #a99dc5;
 }
+.main-form-container .inp-row > .error-input {
+    color: red;
+    margin-top: 2px;
+}
 .inp-sub button {
     margin-top: 10px;
     background-color: grey;

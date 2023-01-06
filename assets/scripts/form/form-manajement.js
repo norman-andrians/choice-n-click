@@ -141,11 +141,19 @@ function passwordValidation() {
 }
 
 function createAccountValidation() {
+    const password1 = document.getElementById("cpw").value;
+    const password2 = document.getElementById("npw").value;
+    const submitBtn = document.getElementById("sub-nito-btn");
+
+    const errorInput = document.querySelectorAll(".error-input");
+    const errorField = document.querySelector(".error-text");
+
     for (let i = 0; i < inptext.length; i++) {
-        if (inptext[i].children[1].required == true) {
-            inptext[i].children[1].addEventListener("focusout", () => {
-                console.log("out");
-            });
+        if (inptext[i].children[1].required == true && inptext[i].children[1].value.length < 1) {
+            inptext[i].children[1].addEventListener("focusout", () => { errorInput[i].innerHTML = "Bidang ini harus diisi*"; });
+        }
+        else {
+            inptext[i].children[1].addEventListener("focusout", () => { errorInput[i].innerHTML = ""; });
         }
     }
 }
@@ -203,6 +211,9 @@ $(document).ready(() => {
     }
     else if (document.getElementById("ca-form")) {
         createAccountValidation();
+        for (let i = 0; i < inptext.length; i++) {
+            inptext[i].children[1].addEventListener("input", () => { createAccountValidation(); });
+        }
     }
     else if (document.getElementById("bs-form")) {
         BusinessInput();
