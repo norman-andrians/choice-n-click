@@ -126,18 +126,19 @@ function otpInput() {
 }
 
 function passwordValidation() {
-    const password1 = document.getElementById("cpw").value;
-    const password2 = document.getElementById("npw").value;
-    const submitBtn = document.getElementById("sub-nito-btn");
-    
+    const password1 = document.getElementById("npw");
+    const password2 = document.getElementById("cpw");
+
     const errorField = document.querySelector(".error-text");
 
-    if (password1 == password2) {
-        submitBtn.type = "submit";
-    }
-    else {
-        errorField.innerHTML = "Kedua password yang diisi tidak sama";
-    }
+    password1.addEventListener("input", () => {
+        errorField.innerHTML = password1.value.length < 8 ? "Buat password setidaknya terdiri dari 8 karakter" : "";
+    });
+
+    password2.addEventListener("input", () => {
+        errorField.innerHTML = password1.value != password2.value ? "Kedua password yang diisi tidak sama" : "";
+    });
+
 }
 
 function createAccountValidation() {
@@ -146,6 +147,18 @@ function createAccountValidation() {
             inptext[i].children[1].addEventListener("focusout", () => {
                 console.log("out");
             });
+        }
+    }
+}
+
+function TRUEcreateAccountValidation() {
+    const submitBtn = document.getElementById("sub-nito-btn");
+
+    let succesed = false;
+
+    for (let i = 0; i < inptext.length; i++) {
+        if (inptext[i].children[1].required == true) {
+            
         }
     }
 }
@@ -202,6 +215,7 @@ $(document).ready(() => {
         submitBtn.addEventListener("click", otpValidation);
     }
     else if (document.getElementById("ca-form")) {
+        passwordValidation();
         createAccountValidation();
     }
     else if (document.getElementById("bs-form")) {
