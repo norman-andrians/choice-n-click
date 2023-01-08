@@ -1,5 +1,5 @@
 import * as fdata from "../data/form-data.js"
-// import regData from "../data/lib/json-nama-daerah-indonesia/regions.json" assert { type: 'json' }
+import regData from "../data/lib/json-nama-daerah-indonesia/regions.json" assert { type: 'json' }
 import { DropDownSettings } from "./special-form.js"
 
 const inptext = document.querySelectorAll(".inp-text");
@@ -27,8 +27,6 @@ function checkInput() {
     }
 
     if (filled == true) {
-        console.log("filled!");
-
         $('#sub-btn').attr("type", "submit");
 
         $('#sub-btn').css("background-color", "#6C4AB6");
@@ -141,13 +139,8 @@ function passwordValidation() {
 
 }
 
-function createAccountValidation() {
-    const password1 = document.getElementById("cpw").value;
-    const password2 = document.getElementById("npw").value;
-    const submitBtn = document.getElementById("sub-nito-btn");
-
+function inputRequired() {
     const errorInput = document.querySelectorAll(".error-input");
-    const errorField = document.querySelector(".error-text");
 
     for (let i = 0; i < inptext.length; i++) {
         if (inptext[i].children[1].required == true && inptext[i].children[1].value.length < 1) {
@@ -159,16 +152,67 @@ function createAccountValidation() {
     }
 }
 
-function TRUEcreateAccountValidation() {
+function createAccountValidation() {
     const submitBtn = document.getElementById("sub-nito-btn");
+    
+    const password1 = document.getElementById("npw");
+    const password2 = document.getElementById("cpw");
 
-    let succesed = false;
+    const errorInput = document.querySelectorAll(".error-input");
+    const errorField = document.querySelector(".error-text");
+
+    let succesed = true;
 
     for (let i = 0; i < inptext.length; i++) {
         if (inptext[i].children[1].required == true) {
-            
+            if (inptext[i].children[1].value.length < 1) {
+                errorInput[i].innerHTML = "Bidang ini harus diisi*";
+                succesed = false;
+            }
+            if (password1.value.length < 8) {
+                errorField.innerHTML = "Buat password setidaknya terdiri dari 8 karakter";
+                succesed = false;
+            }
+            if (password1.value != password2.value) {
+                errorField.innerHTML = "Kedua password yang diisi tidak sama";
+                succesed = false;
+            }
         }
     }
+
+    submitBtn.type = succesed == true ? "submit" : "button";
+}
+
+function createBusinessValidation() {
+    const submitBtn = document.getElementById("sub-nito-btn");
+
+    const inpDropdown = document.querySelectorAll(".inp-dropdown");
+
+    const errorInput = document.querySelectorAll(".error-input");
+    const errorDpINput = document.querySelectorAll(".error-dp-input");
+
+    let succesed = true;
+
+    for (let i = 0; i < inptext.length; i++) {
+        if (inptext[i].children[1].required == true) {
+            if (inptext[i].children[1].value.length < 1) {
+                errorInput[i].innerHTML = "Bidang ini harus diisi*";
+                succesed = false;
+            }
+        }
+    }
+
+    for (let i = 0; i < inpDropdown.length; i++) {
+        if (inpDropdown[i].children[0].required == true) {
+            if (inpDropdown[i].children[0].value.length < 1) {
+                errorDpINput[i].innerHTML = "Bidang ini harus diisi*";
+
+                succesed = false;
+            }
+        }
+    }
+
+    submitBtn.type = succesed == true ? "submit" : "button";
 }
 
 function BusinessInput() {
@@ -224,12 +268,33 @@ $(document).ready(() => {
     }
     else if (document.getElementById("ca-form")) {
         passwordValidation();
-        createAccountValidation();
+        inputRequired();
+
         for (let i = 0; i < inptext.length; i++) {
-            inptext[i].children[1].addEventListener("input", () => { createAccountValidation(); });
+            inptext[i].children[1].addEventListener("input", () => { inputRequired(); });
         }
+
+        submitBtn.addEventListener("click", createAccountValidation);
     }
     else if (document.getElementById("bs-form")) {
+        const inpDropdown = document.querySelectorAll(".inp-dropdown");
+        const errorDpINput = document.querySelectorAll(".error-dp-input");
+
         BusinessInput();
+        inputRequired();
+
+        for (let i = 0; i < inptext.length; i++) {
+            inptext[i].children[1].addEventListener("input", () => { inputRequired(); });
+        }
+
+        for (let i = 0; i < inpDropdown.length; i++) {
+            inpDropdown[i].addEventListener("click", () => {
+                if (inpDropdown[i].children[0].value.length > 0) {
+                    errorDpINput[i].innerHTML = "";
+                }
+            });
+        }
+
+        submitBtn.addEventListener("click", createBusinessValidation);
     }
 });

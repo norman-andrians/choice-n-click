@@ -66,9 +66,11 @@ body {
 .main-form-container .inp-row > .inp-text > input::placeholder {
     color: #a99dc5;
 }
-.main-form-container .inp-row > .error-input {
+.main-form-container .inp-row > .error-input, .main-form-container .inp-row > .error-dp-input {
     color: red;
-    margin-top: 2px;
+    margin-top: 4px;
+    font-family: 'Noto sans';
+    font-size: small;
 }
 .inp-sub button {
     margin-top: 10px;

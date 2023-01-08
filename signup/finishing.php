@@ -17,6 +17,7 @@ if (isset($_POST['signin'])) {
         setcookie("registered", 0, $expdate, $path);
         setcookie("step_passed", 0, $expdate, $path);
 
+        header("location:finishing.php");
     }
     else {
         if (User::nicknameExist($nickname) && User::emailExist($email)) {
@@ -26,8 +27,6 @@ if (isset($_POST['signin'])) {
         else if (User::emailExist($email)) { header("location:index.php?emailHas=exist"); }
     }
 }
-
-setcookie("step_passed", 1, time() + (86400 * 7), "/");
 
 ?>
 <!DOCTYPE html>
@@ -58,10 +57,9 @@ $step_passed = isset($_COOKIE['step_passed']) ? $_COOKIE['step_passed'] : false;
 
 $user;
 
-
 /*
-else {
-    header("location:index.php");
+if (isset($_COOKIE['step_passed'])) {
+    echo $_COOKIE['step_passed'];
 }
 */
 ?>
@@ -158,10 +156,10 @@ else {
                                     $telphone = $_POST['telphone'];
                                     $password = $_POST['cpw'];
 
+                                    $step_passed++;
+
                                     $expdate = time() + (86400 * 7);
                                     $path = "/";
-
-                                    $step_passed++;
 
                                     setcookie("username", $username, $expdate, $path);
                                     setcookie("phonenum", $telphone, $expdate, $path);
@@ -191,7 +189,7 @@ else {
                             <div class="error-input"></div>
                         </div>
                         <div class="inp-row">
-                            <div class="inp-text"><div class="inp-bg"></div><input type="number" name="telphone" id="telphone" placeholder="Nomor Telepon*" min="80000" max="999999" required></div>
+                            <div class="inp-text"><div class="inp-bg"></div><input type="number" name="telphone" id="telphone" placeholder="Nomor Telepon*" min="1000000000" max="99999999999999" required></div>
                             <div class="error-input"></div>
                         </div>
                         <header class="inp-ftg">
@@ -211,48 +209,72 @@ else {
                     <?php
                                 break;    
                             case 2:
+                                $isFilled = isset($_POST['bname']) && isset($_POST['btype']) && isset($_POST['locprov']) && isset($_POST['loccity']);
+
+                                if (isset($_POST['create']) && $isFilled) {
+                                    $b_name = $_POST['bname'];
+                                    $b_type = $_POST['btype'];
+                                    $b_loc_prov = $_POST['locprov'];
+                                    $b_loc_city = $_POST['loccity'];
+
+                                    $step_passed++;
+
+                                    $expdate = time() + (86400 * 7);
+                                    $path = "/";
+
+                                    setcookie("b_name", $b_name, $expdate, $path);
+                                    setcookie("b_type", $b_type, $expdate, $path);
+                                    setcookie("b_loc_prov", $b_loc_prov, $expdate, $path);
+                                    setcookie("b_loc_city", $b_loc_city, $expdate, $path);
+                                    setcookie("step_passed", $step_passed, $expdate, $path);
+
+                                    header("location:finishing.php");
+                                }
                     ?>
-                    <div class="tb-form" id="bs-form" style="display: none;">
+                    <div class="tb-form" id="bs-form">
                         <header class="inp-ftg">
                             <h3>Buat bisnis</h3>
                         </header>
                         <div class="inp-row">
-                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="bname" id="bname" placeholder="Nama bisnis*"></div>
+                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="bname" id="bname" placeholder="Nama bisnis*" required></div>
+                            <div class="error-input"></div>
                         </div>
                         <div class="inp-row">
                             <button class="inp-dropdown" id="bdrop" type="button">
-                                <input type="hidden" name="btype" value="">
+                                <input type="hidden" name="btype" value="" required>
                                 <div class="inp-dp-text">Jenis bisnis*</div>
                                 <div class="inp-dp-da-icon"><i class="fa-solid fa-caret-down"></i></div>
                                 <div class="inp-dp-ct"></div>
                             </button>
+                            <div class="error-dp-input"></div>
                         </div>
                         <div class="inp-row">
                             <button class="inp-dropdown" id="pdrop" type="button">
-                                <input type="hidden" name="btype" value="">
+                                <input type="hidden" name="locprov" value="" required>
                                 <div class="inp-dp-text">Provinsi*</div>
                                 <div class="inp-dp-da-icon"><i class="fa-solid fa-caret-down"></i></div>
                                 <div class="inp-dp-ct"></div>
                             </button>
+                            <div class="error-dp-input"></div>
                         </div>
                         <div class="inp-row">
                             <button class="inp-dropdown" id="cdrop" type="button" disabled>
-                                <input type="hidden" name="btype" value="">
+                                <input type="hidden" name="loccity" value="" required>
                                 <div class="inp-dp-text">Kota* (Pilih Provinsi Dulu)</div>
                                 <div class="inp-dp-da-icon"><i class="fa-solid fa-caret-down"></i></div>
                                 <div class="inp-dp-ct">
                                     <div class="inp-dp-row-empty">Silahkan Pilih Provinsi Terlebih Dahulu</div>
                                 </div>
                             </button>
+                            <div class="error-dp-input"></div>
                         </div>
-                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Selanjutnya</button></div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="button" name="create" value="business">Selanjutnya</button></div>
                     </div>
                     <?php
                                     break;
-                        }
-                    }
+                                case 3:
                     ?>
-                    <div class="tb-form" id="cp-form" style="display: none;">
+                    <div class="tb-form" id="cp-form">
                         <header class="inp-ftg">
                             <h3>Buat Produk</h3>
                             <p>Buat produk pertama anda</p>
@@ -277,6 +299,11 @@ else {
                         </div>
                         <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Mulai</button></div>
                     </div>
+                    <?php
+                                    break;
+                        }
+                    }
+                    ?>
                 </form>
             </div>
         </div>
