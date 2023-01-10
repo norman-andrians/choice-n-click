@@ -273,6 +273,14 @@ if (isset($_COOKIE['step_passed'])) {
                     <?php
                                     break;
                                 case 3:
+                                    $upload_error_msg = "";
+                                    $isFilled = isset($_FILES['filename']) && isset($_POST['productName']) && isset($_POST['category']) && isset($_POST['price']);
+
+                                    if (isset($_POST['create']) && $isFilled) {
+                                        $p_name = $_POST['productName'];
+                                        $p_category = $_POST['category'];
+                                        $_price = $_POST['price'];
+                                    }
                     ?>
                     <div class="tb-form" id="cp-form">
                         <header class="inp-ftg">
@@ -281,7 +289,7 @@ if (isset($_COOKIE['step_passed'])) {
                         </header>
                         <div class="inp-row">
                             <div class="inp-file-img">
-                                <input type="file" name="productName" id="pname" accept="image/*">
+                                <input type="file" name="fileName" id="fname" accept="image/*">
                                 <label for="pname" class="inp-fl">
                                     <div class="inp-flog"><i class="fa-solid fa-box-archive fa-3x"></i></div>
                                     <div class="inp-fl-t">Upload Foto Produk</div>
@@ -292,12 +300,12 @@ if (isset($_COOKIE['step_passed'])) {
                             <div class="inp-text"><div class="inp-bg"></div><input type="text" name="productName" id="pname" placeholder="Nama Produk*"></div>
                         </div>
                         <div class="inp-row">
-                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="productName" id="pname" placeholder="Kategori Produk*"></div>
+                            <div class="inp-text"><div class="inp-bg"></div><input type="text" name="category" id="cname" placeholder="Kategori Produk*"></div>
                         </div>
                         <div class="inp-row">
-                            <div class="inp-text"><div class="inp-bg"></div><input type="number" name="productName" id="pname" placeholder="Harga Produk*"></div>
+                            <div class="inp-text inp-price"><div class="inp-bg"></div><div class="inp-currency"><div class="inp-cr-text">Rp</div></div><input type="number" name="price" id="price" placeholder="Harga Produk*" min=0></div>
                         </div>
-                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="submit">Mulai</button></div>
+                        <div class="inp-sub-nito"><button id="sub-nito-btn" type="button" name="create" value="product">Mulai</button></div>
                     </div>
                     <?php
                                     break;
@@ -309,5 +317,13 @@ if (isset($_COOKIE['step_passed'])) {
         </div>
     </div>
     <script type="module" src="../assets/scripts/form/form-manajement.js"></script>
+    <script type="text/javascript">
+        $('#price').on("focusin", () => {
+            $('.inp-currency').css("background-color", "#6C4AB6");
+        });
+        $('#price').on("focusout", () => {
+            $('.inp-currency').css("background-color", "#a99dc5");
+        });
+    </script>
 </body>
 </html>

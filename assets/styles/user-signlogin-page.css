@@ -66,6 +66,25 @@ body {
 .main-form-container .inp-row > .inp-text > input::placeholder {
     color: #a99dc5;
 }
+.main-form-container .inp-row > .inp-price > input {
+    padding-left: 60px;
+    width: 79.5%;
+}
+.main-form-container .inp-row > .inp-price .inp-currency {
+    position: absolute;
+    height: 100%;
+    width: 50px;
+    background-color: #a99dc5;
+    border-radius: 5px 0 0 5px;
+    transition: .2s;
+}
+.main-form-container .inp-row > .inp-price .inp-currency > .inp-cr-text {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .main-form-container .inp-row > .error-input, .main-form-container .inp-row > .error-dp-input {
     color: red;
     margin-top: 4px;
