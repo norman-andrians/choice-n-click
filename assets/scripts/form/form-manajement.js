@@ -1,6 +1,7 @@
 import * as fdata from "../data/form-data.js"
 import regData from "../data/lib/json-nama-daerah-indonesia/regions.json" assert { type: 'json' }
 import { DropDownSettings } from "./special-form.js"
+import { UploadProfile } from "./uploads-validation.js"
 
 const inptext = document.querySelectorAll(".inp-text");
 // const inpOtp = document.querySelector(".inp-six-dig").children;
@@ -248,6 +249,10 @@ function BusinessInput() {
             cDropDown.refreshDropDown();
         });
     }
+}
+
+function ProductInput() {
+
 }
 
 $(document).ready(() => {

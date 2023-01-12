@@ -76,6 +76,7 @@ body {
     width: 50px;
     background-color: #a99dc5;
     border-radius: 5px 0 0 5px;
+    z-index: 4;
     transition: .2s;
 }
 .main-form-container .inp-row > .inp-price .inp-currency > .inp-cr-text {
@@ -310,6 +311,9 @@ body {
     height: 100vh;
 }
 
+.inp-file-img {
+    display: flex;
+}
 .inp-file-img input[type="file"] {
     display: none;
 }
@@ -321,8 +325,8 @@ body {
     border-radius: 8px;
     border: 3px solid #a99dc5;
     color: #a99dc5;
-    text-align: center;
     display: grid;
+    text-align: center;
     align-items: center;
     transition: .2s;
     cursor: pointer;
@@ -338,6 +342,15 @@ body {
     text-align: center;
     display: grid;
     align-items: center;
+}
+.inp-file-attention {
+    width: 60%;
+    font-size: small;
+    font-family: "noto sans";
+    color: #8869ca;
+}
+.fta-marg {
+    margin: 10px;
 }
 .inp-fl-t {
     font-family: 'pt sans';

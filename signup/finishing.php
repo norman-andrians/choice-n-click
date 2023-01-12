@@ -290,10 +290,13 @@ if (isset($_COOKIE['step_passed'])) {
                         <div class="inp-row">
                             <div class="inp-file-img">
                                 <input type="file" name="fileName" id="fname" accept="image/*">
-                                <label for="pname" class="inp-fl">
+                                <label for="fname" class="inp-fl">
                                     <div class="inp-flog"><i class="fa-solid fa-box-archive fa-3x"></i></div>
                                     <div class="inp-fl-t">Upload Foto Produk</div>
                                 </label>
+                                <div class="inp-file-attention">
+                                    <div class="fta-marg">Ukuran gambar maksimal 5MB dengan ratio 1:1</div>
+                                </div>
                             </div>
                         </div>
                         <div class="inp-row">
